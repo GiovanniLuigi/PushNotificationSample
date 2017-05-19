@@ -16,4 +16,9 @@ mvn spring-boot:run
 
 6.Configurar um banco de dados.
 
-7.Adicionar a aplicação ao Bluemix
+7.Adicionar a aplicação ao Heroku
+  
+  brew install heroku-toolbelt
+  heroku update
+  heroku login
+  

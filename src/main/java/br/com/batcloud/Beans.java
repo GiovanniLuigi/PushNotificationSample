@@ -1,8 +1,14 @@
 package br.com.batcloud;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 
 import com.relayrides.pushy.apns.ApnsClient;
@@ -45,5 +51,13 @@ public class Beans {
           .apis(RequestHandlerSelectors.any())              
           .paths(PathSelectors.any())                          
           .build();                                           
+    }
+	
+	@Profile(value = "production")
+	@Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
     }
 }

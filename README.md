@@ -78,7 +78,8 @@ Agora acesse https://nomedoseuapp.herokuapp.com/swagger-ui.html e pode brincar!
 ### No seu projeto iOS
 
   * Crie uma classe que faz a conexão com seus serviços 
-  ```
+  
+```
   open class RestController {
     
     static private let urlString = "https://miapphue12.herokuapp.com/device"
@@ -94,10 +95,11 @@ Agora acesse https://nomedoseuapp.herokuapp.com/swagger-ui.html e pode brincar!
     }
     
   }
-  ```
-obs.: urlString = sua url no heroku
+ ```
+ obs.: urlString = sua url no heroku
 
   * Chame a função que cadastra o seu token no bd
+  
 ```
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("SUA TOKEN : \(tokenString(deviceToken))")

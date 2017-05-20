@@ -98,7 +98,7 @@ Agora acesse https://nomedoseuapp.herokuapp.com/swagger-ui.html e pode brincar!
  ```
  obs.: urlString = sua url no heroku
 
-  * Chame a função que cadastra o seu token no bd
+ * No AppDelegate chame a função que cadastra o seu token no bd
   
 ```
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

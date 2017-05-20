@@ -54,4 +54,12 @@ Agora acesse https://nomedoseuapp.herokuapp.com/swagger-ui.html e pode brincar!
  
 #### Adicionar banco de dados no Heroku
 
+  * Simplesmente abra o arquivo application.properties e substitua spring.profiles.active=dev por spring.profiles.active=production
+  * Agora faça o deploy no heroku
+  
+```shell
+    git add .
+    git commit -m "Production"
+    git push heroku master
+```
 ## Integrar com seu projeto

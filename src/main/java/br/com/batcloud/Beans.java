@@ -29,7 +29,7 @@ public class Beans {
 	public ApnsClient apnsClient() throws Exception {
 		
 		final ApnsClient apnsClient = new ApnsClientBuilder()
-		        .setClientCredentials(new ClassPathResource(certFileName).getFile(), certPass)
+		        .setClientCredentials(new ClassPathResource(certFileName).getInputStream(), certPass)
 		        .build();		
 		
 		final Future<Void> connectFuture = apnsClient.connect(ApnsClient.DEVELOPMENT_APNS_HOST);

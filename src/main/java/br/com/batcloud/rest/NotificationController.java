@@ -1,5 +1,6 @@
 package br.com.batcloud.rest;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,25 @@ public class NotificationController {
 			@PathVariable("deviceId") Long deviceId) throws Exception{
 		
 		Device d = deviceRepo.getOne(deviceId);
+		
+		sendNotification(payload, d.getToken());
+		
+		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping("notificationToAll")
+	public ResponseEntity<?> sendToALl(@RequestBody Payload payload) throws Exception{
+		List<Device> devices = deviceRepo.findAll();
+		for (Device device : devices) {
+			sendNotification(payload, device.getToken());	
+		}
+		return ResponseEntity.ok().build();
+	}
+	
+	//TODO retornar erro caso aconteça
+	private void sendNotification(Payload payload, String token) throws Exception {
 		SimpleApnsPushNotification pushNotification = 
-				new SimpleApnsPushNotification(d.getToken(), bundleId, payload.payload());
+				new SimpleApnsPushNotification(token, bundleId, payload.payload());
 		
 		final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
 				apns.sendNotification(pushNotification);
@@ -68,7 +86,6 @@ public class NotificationController {
 	        }
 	    }
 		
-		return ResponseEntity.ok().build();
 	}
 	
 }

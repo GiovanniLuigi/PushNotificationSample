@@ -22,8 +22,8 @@ public class DeviceController {
 	private DeviceRepo repository;
 
 	@PostMapping("device")
-	public ResponseEntity<Void> postDevice (@RequestBody Device d) {
-		repository.save(d);
+	public ResponseEntity<Void> createDevice (@RequestBody Device device) {
+		repository.save(device);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -38,7 +38,6 @@ public class DeviceController {
 		repository.delete(id);
 		return ResponseEntity.ok().build();
 	}
-	
 	
 	@GetMapping("/device/{id}")
 	public ResponseEntity<Device> getDevice (@PathVariable("id") Long id) {

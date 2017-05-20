@@ -1,24 +1,57 @@
 # PushNotificationSample
 
-1.Instalar maven com auxílio do brew:
-
-brew install maven
-
-2.Na pasta do projeto executar o comando para rodar o servidor (está configurado para porta 8080):
-
-mvn spring-boot:run
-
-3.A documentação gerada pode ser acessada pela url : http://localhost:8080/swagger-ui.html
-
-4.Adicione o .p12 na pasta src/main/resources
-
-5.No arquivo application.properties configure o nome do arquivo de .p12, sua senha e o bundleId da sua aplicação.
-
-6.Configurar um banco de dados.
-
-7.Adicionar a aplicação ao Heroku
+## Rodar local
+  * Instalar maven com auxílio do brew:
+```shell
+    brew install maven
+```
+  * Na pasta do projeto executar o comando para rodar o servidor:
+```shell
+    mvn spring-boot:run
+```
   
-  brew install heroku-toolbelt
-  heroku update
-  heroku login
+* Baixe o projeto exemplo : https://github.com/GiovanniLuigi/NotificationExampleProject e execute no seu iPhone, no log deve ficar printado o token do seu aparelho
   
+* Crie um Device no servidor : http://localhost:8080/swagger-ui.html#!/device-controller/createDeviceUsingPOST
+```
+obs.: O json deve conter token, mas não precisa do id. Ex.: {"token":"suatoken"}
+Clique em "try it out!" no canto esquerdo inferior.
+```
+* Envie uma notificação para todos os devices cadastrados : http://localhost:8080/swagger-ui.html#!/notification-controller/sendToALlUsingPOST
+
+```
+Ex.: 
+{
+"alertBody":"HUE3",
+"soundFileName":"notes_of_the_optimistic.caf",
+"alertTitle":"Batman",
+"badgeNumber":25
+}
+```
+## Rodar no Heroku
+
+ * Crie uma conta no Heroku : https://www.heroku.com/
+
+ * Instale Heroku na sua máquina e faça o login
+  
+```shell
+    brew install heroku-toolbelt
+    heroku update
+    heroku login
+```
+  * Crie um app no Heroku
+
+```shell
+    git remote rm heroku
+    heroku create nomedoseuapp
+```
+  * Faça o deploy de seu app no Heroku
+```shell
+    git push heroku master
+```
+
+Agora acesse https://nomedoseuapp.herokuapp.com/swagger-ui.html e pode brincar!
+ 
+#### Adicionar banco de dados no Heroku
+
+## Integrar com seu projeto

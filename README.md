@@ -63,3 +63,45 @@ Agora acesse https://nomedoseuapp.herokuapp.com/swagger-ui.html e pode brincar!
     git push heroku master
 ```
 ## Integrar com seu projeto
+ 
+ ### No projeto java
+  * Adicione o seu arquivo .p12 na pasta src/main/resources
+  
+  * Mude as configuração no arquivo application.properties conforme suas credenciais 
+  ```
+  cert.filename = nomedoseuarquivop12.p12
+  cert.pass = suasenha
+  bundleId = seubundleid
+  ```
+  * Suba o projeto pro servidor
+ 
+### No seu projeto iOS
+
+  * Crie uma classe que faz a conexão com seus serviços 
+  ```
+  open class RestController {
+    
+    static private let urlString = "https://miapphue12.herokuapp.com/device"
+    
+    static func createDevice(_ token: String) {
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let data = "{\"token\":\"\(token)\" }"
+        request.httpBody = data.data(using: .utf8)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        URLSession.shared.dataTask(with: request).resume()
+    }
+    
+  }
+  ```
+obs.: urlString = sua url no heroku
+
+  * Chame a função que cadastra o seu token no bd
+```
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("SUA TOKEN : \(tokenString(deviceToken))")
+        
+        RestController.createDevice(tokenString(deviceToken))
+    }
+```
